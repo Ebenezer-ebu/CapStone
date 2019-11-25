@@ -26,7 +26,8 @@ const createUsersTable = () => {
         jobRole VARCHAR(255),
         department VARCHAR(255),
         address VARCHAR(255),
-        created_date TIMESTAMP
+        created_date TIMESTAMP,
+        isAdmin BOOLEAN NOT NULL
     )`;
 
     pool.query(queryText)
@@ -80,6 +81,22 @@ const createGifTable = () => {
     )`
 } 
 
+/**
+ * Create Comment Table
+ */
+
+const createCommentTable = () => {
+    const queryText = `CREATE TABLE IF NOT EXISTS comment (
+        commid UUID PRIMARY KEY,
+        FOREIGN KEY (comment_id) REFERENCES users (id) ON DELETE CASCADE,
+        FOREIGN KEY (commentgif_id) REFERENCES gif (gifid) ON DELETE CASCADE,
+        FOREIGN KEY (commentAD_id) REFERENCES article (articleid) ON DELETE CASCADE
+        gifBody TEXT(255),
+        articleBody TEXT(255),
+        created_date TIMESTAMP,
+        modified_date TIMESTAMP
+    )`;
+}
 
 /**
  * Drop Users Table
@@ -114,11 +131,44 @@ const dropArticleTable = () => {
 }
 
 /**
+ * Drop Gif Table
+ */
+const dropGifTable = () => {
+    const queryText = 'DROP TABLE IF EXISTS gif returning *';
+    pool.query(queryText)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    })
+}
+
+/**
+ * Drop Articles Table
+ */
+const dropCommentTable = () => {
+    const queryText = 'DROP TABLE IF EXISTS comment returning *';
+    pool.query(queryText)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    })
+}
+/**
  * Create All Tables
  */
 const createAllTables = () => {
     createUsersTable();
     createArticleTable();
+    createCommentTable();
+    createGifTable();
 }
 
 /**
@@ -127,6 +177,8 @@ const createAllTables = () => {
 const dropAllTables = () => {
     dropUsersTable();
     dropArticleTable();
+    dropCommentTable();
+    dropGifTable();
 }
 
 pool.on('remove', () => {
