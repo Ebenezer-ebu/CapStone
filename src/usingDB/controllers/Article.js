@@ -11,12 +11,11 @@ const Article = {
      */
     async create(req, res) {
       const createQuery = `INSERT INTO
-        article (articleid, token, title, article, created_date, owner_id)
-        VALUES($1, $2, $3, $4, $5, $6)
+        article (articleid, title, article, created_date, owner_id)
+        VALUES($1, $2, $3, $4, $5)
         returning *`;
       const values = [
         uuidv4(),
-        req.body.token,
         req.body.title,
         req.body.article,
         moment(new Date()),

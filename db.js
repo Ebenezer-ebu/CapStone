@@ -49,7 +49,6 @@ const createArticleTable = () => {
     const queryText = 
     `CREATE TABLE IF NOT EXISTS article (
     articleid UUID PRIMARY KEY,
-    token VARCHAR(),
     title VARCHAR(),
     article VARCHAR(),
     created_date TIMESTAMP,
@@ -189,8 +188,12 @@ pool.on('remove', () => {
   module.export = {
     createUsersTable,
     createArticleTable,
+    createCommentTable,
+    createGifTable,
     dropUsersTable,
     dropArticleTable,
+    dropCommentTable,
+    dropGifTable
   }
 
   require('make-runnable');

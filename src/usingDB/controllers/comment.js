@@ -16,7 +16,7 @@ const Comments = {
          [uuidv4, 
           req.users.id, 
           req.gif.gifid, 
-          req.body.comments,  
+          req.body.gifBody,  
           moment(new Date()), 
           moment(new Date())];
         try {
@@ -33,8 +33,8 @@ const Comments = {
         const values =
           [uuidv4, 
            req.users.id, 
-           req.gif.articleid, 
-           req.body.comments,  
+           req.article.articleid, 
+           req.body.articleBody,  
            moment(new Date()), 
            moment(new Date())];
         try {
