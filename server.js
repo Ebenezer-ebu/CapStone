@@ -19,17 +19,17 @@ app.get('/', (req, res) => {
     return res.status(200).send({'message': 'YAY! Congratulations! Your first endpoint is working'});
   });
 
-app.post('/api/v1/User', Auth.verifyToken, User.create);
-app.post('/api/v1/User/login', Auth.verifyToken, User.login);
-app.post('/api/v1/Gif', Gif.create);
-app.post('/api/v1/Article', Article.create);
-app.patch('/api/v1/Article/:id', Article.update);
-app.delete('/api/v1/Article/:id', Article.delete);
-app.delete('/api/v1/Gif/:id', Gif.delete);
-app.post('/api/v1/Article/:id/comment', Comments.createArt);
-app.post('/api/v1/Gif/:id/comment', Comments.createGif);
-app.get('/api/v1/Article/:id', Article.getOne);
-app.get('api/v1/Gif/:id', Gif.getOne);
+app.post('/api/v1/auth/create-user', User.create);
+app.post('/api/v1/auth/signin', User.login);
+app.post('/api/v1/gifs', Auth.verifyToken, Gif.create);
+app.post('/api/v1/articles', Auth.verifyToken, Article.create);
+app.patch('/api/v1/articles/<:articleId>', Auth.verifyToken, Article.update);
+app.delete('/api/v1/articles/<:articleId>', Auth.verifyToken, Article.delete);
+app.delete('/api/v1/gifs/<:gifId>', Auth.verifyToken, Gif.delete);
+app.post('/api/v1/articles/<articleId>/comment', Auth.verifyToken, Comments.createArt);
+app.post('/api/v1/gifs/<:gifId>/comment ', Auth.verifyToken, Comments.createGif);
+app.get('/api/v1/articles/<:articleId', Auth.verifyToken, Article.getOne);
+app.get('api/v1/gifs/<:gifId>', Auth.verifyToken, Gif.getOne);
 
 app.listen(3000)
 console.log('app running on port ', 3000);

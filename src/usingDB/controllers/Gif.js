@@ -1,7 +1,7 @@
 import moment from 'moment';
 import uuidv4 from 'uuid/v4';
 import db from '../db';
-import cloudinary from './cloudinaryConfig'
+import cloudinary from '../../cloudinaryConfig'
 import { constants } from 'crypto';
 
 const Gif = {

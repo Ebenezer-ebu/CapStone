@@ -49,6 +49,7 @@ const createArticleTable = () => {
     var queryText = 
     `CREATE TABLE IF NOT EXISTS article (
       articleid UUID PRIMARY KEY,
+      owner_id UUID,
       title VARCHAR(255),
       article VARCHAR(255),
       created_date TIMESTAMP,
@@ -75,6 +76,7 @@ const createGifTable = () => {
     `CREATE TABLE IF NOT EXISTS gif (
         gifid UUID PRIMARY KEY,
         title VARCHAR(55),
+        gif_id UUID,
         image_URL VARCHAR(255),
         created_date TIMESTAMP,
         FOREIGN KEY (gif_id) REFERENCES users (id) ON DELETE CASCADE
@@ -98,11 +100,14 @@ const createCommentTable = () => {
     const queryText = 
     `CREATE TABLE IF NOT EXISTS comment (
         commid UUID PRIMARY KEY,
+        comment_id UUID,
+        commentgif_id UUID,
+        commentAD_id UUID,
         FOREIGN KEY (comment_id) REFERENCES users (id) ON DELETE CASCADE,
         FOREIGN KEY (commentgif_id) REFERENCES gif (gifid) ON DELETE CASCADE,
         FOREIGN KEY (commentAD_id) REFERENCES article (articleid) ON DELETE CASCADE,
-        gifBody TEXT(255),
-        articleBody TEXT(255),
+        gifBody VARCHAR(255),
+        articleBody VARCHAR(255),
         created_date TIMESTAMP,
         modified_date TIMESTAMP
     )`;
