@@ -11,7 +11,7 @@ const pool = new Pool({
     console.log('connected to the db');
   });
 
-  /**
+ /**
  * Create Users Table 
  */
 const createUsersTable = () => {
@@ -46,24 +46,24 @@ const createUsersTable = () => {
 */
 
 const createArticleTable = () => {
-    const queryText = 
+    var queryText = 
     `CREATE TABLE IF NOT EXISTS article (
-    articleid UUID PRIMARY KEY,
-    title VARCHAR(),
-    article VARCHAR(),
-    created_date TIMESTAMP,
-    FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
+      articleid UUID PRIMARY KEY,
+      title VARCHAR(255),
+      article VARCHAR(255),
+      created_date TIMESTAMP,
+      FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
     )`;
 
-    pool.query(queryText) 
+    pool.query(queryText)
     .then((res) => {
-        console.log(res);
-        pool.end();
+      console.log(res);
+      pool.end();
     })
     .catch((err) => {
-        console.log(err);
-        pool.end();
-    })
+      console.log(err);
+      pool.end();
+    });
 }
 
 /**
@@ -71,47 +71,67 @@ const createArticleTable = () => {
  */
 
 const createGifTable = () => {
-    const queryText = `CREATE TABLE IF NOT EXISTS gif (
+    const queryText = 
+    `CREATE TABLE IF NOT EXISTS gif (
         gifid UUID PRIMARY KEY,
-        title VARCHAR(),
-        image_URL VARCHAR(),
+        title VARCHAR(55),
+        image_URL VARCHAR(255),
         created_date TIMESTAMP,
         FOREIGN KEY (gif_id) REFERENCES users (id) ON DELETE CASCADE
-    )`
-} 
+    )`;
+    pool.query(queryText)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+}
 
 /**
  * Create Comment Table
  */
 
 const createCommentTable = () => {
-    const queryText = `CREATE TABLE IF NOT EXISTS comment (
+    const queryText = 
+    `CREATE TABLE IF NOT EXISTS comment (
         commid UUID PRIMARY KEY,
         FOREIGN KEY (comment_id) REFERENCES users (id) ON DELETE CASCADE,
         FOREIGN KEY (commentgif_id) REFERENCES gif (gifid) ON DELETE CASCADE,
-        FOREIGN KEY (commentAD_id) REFERENCES article (articleid) ON DELETE CASCADE
+        FOREIGN KEY (commentAD_id) REFERENCES article (articleid) ON DELETE CASCADE,
         gifBody TEXT(255),
         articleBody TEXT(255),
         created_date TIMESTAMP,
         modified_date TIMESTAMP
     )`;
+    pool.query(queryText)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
 }
-
-/**
+ /**
  * Drop Users Table
  */
 const dropUsersTable = () => {
     const queryText = 'DROP TABLE IF EXISTS users returning *';
     pool.query(queryText)
     .then((res) => {
-        console.log(res);
-        pool.end();
+      console.log(res);
+      pool.end();
     })
     .catch((err) => {
-        console.log(err);
-        pool.end();
-    })
+      console.log(err);
+      pool.end();
+    });
 }
+
 
 /**
  * Drop Articles Table
@@ -120,13 +140,13 @@ const dropArticleTable = () => {
     const queryText = 'DROP TABLE IF EXISTS article returning *';
     pool.query(queryText)
     .then((res) => {
-        console.log(res);
-        pool.end();
+      console.log(res);
+      pool.end();
     })
     .catch((err) => {
-        console.log(err);
-        pool.end();
-    })
+      console.log(err);
+      pool.end();
+    });
 }
 
 /**
@@ -136,15 +156,14 @@ const dropGifTable = () => {
     const queryText = 'DROP TABLE IF EXISTS gif returning *';
     pool.query(queryText)
     .then((res) => {
-        console.log(res);
-        pool.end();
+      console.log(res);
+      pool.end();
     })
     .catch((err) => {
-        console.log(err);
-        pool.end();
-    })
+      console.log(err);
+      pool.end();
+    });
 }
-
 /**
  * Drop Articles Table
  */
@@ -152,13 +171,13 @@ const dropCommentTable = () => {
     const queryText = 'DROP TABLE IF EXISTS comment returning *';
     pool.query(queryText)
     .then((res) => {
-        console.log(res);
-        pool.end();
+      console.log(res);
+      pool.end();
     })
     .catch((err) => {
-        console.log(err);
-        pool.end();
-    })
+      console.log(err);
+      pool.end();
+    });
 }
 /**
  * Create All Tables
@@ -185,15 +204,17 @@ pool.on('remove', () => {
     process.exit(0);
   });
 
-  module.export = {
+  module.exports = {
     createUsersTable,
     createArticleTable,
     createCommentTable,
     createGifTable,
+    createAllTables,
     dropUsersTable,
     dropArticleTable,
     dropCommentTable,
-    dropGifTable
-  }
+    dropGifTable,
+    dropAllTables 
+  };
 
   require('make-runnable');
