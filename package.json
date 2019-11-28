@@ -28,6 +28,7 @@
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-watch": "^7.0.0",
+    "coveralls": "^3.0.9",
     "jasmine": "^3.5.0",
     "jasmine-node": "^3.0.0"
   },
@@ -35,7 +36,8 @@
     "test-init": "./node_modules/jasmine/bin/jasmine.js init",
     "test": "./node_modules/jasmine/bin/jasmine.js",
     "build": "babel server.js --out-dir build",
-    "dev-start": "babel-watch server.js"
+    "dev-start": "babel-watch server.js",
+    "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
