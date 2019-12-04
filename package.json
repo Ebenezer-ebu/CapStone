@@ -1,0 +1,53 @@
+{
+  "name": "capstone",
+  "version": "1.0.0",
+  "description": "CapStone",
+  "main": "index.js",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "cloudinary": "^1.17.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "express": "^4.17.1",
+    "jest": "^24.9.0",
+    "jsonwebtoken": "^8.5.1",
+    "make-runnable": "^1.3.6",
+    "moment": "^2.24.0",
+    "pg": "^7.12.1",
+    "request": "^2.88.0",
+    "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babel-watch": "^7.0.0",
+    "coveralls": "^3.0.9",
+    "jasmine": "^3.5.0",
+    "jasmine-node": "^3.0.0"
+  },
+  "scripts": {
+    "test-init": "node ./node_modules/jasmine/bin/jasmine.js init",
+    "test": "node ./node_modules/jasmine/bin/jasmine.js",
+    "build": "babel server.js --out-dir build",
+    "dev-start": "babel-watch server.js",
+    "test:coveralls": "jest --coverage --coverageReporters=text-lcov | coveralls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ebenezer-ebu/CapStone.git"
+  },
+  "author": "Ifezulike Ebenezer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ebenezer-ebu/CapStone/issues"
+  },
+  "homepage": "https://github.com/Ebenezer-ebu/CapStone#readme"
+}
