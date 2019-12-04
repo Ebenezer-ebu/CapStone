@@ -3,7 +3,7 @@ var Request = require("request");
 describe("Server", () => {
     var server;
     beforeAll(() => {
-        server = require("../app");
+        server = require("./app");
     });
     afterAll(() => {
         server.close();
