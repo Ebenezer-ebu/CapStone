@@ -7,6 +7,7 @@ import comment from "./src/usingDB/controllers/comment";
 import Gif from "./src/usingDB/controllers/Gif";
 import Helpers from "./src/usingDB/controllers/Helpers";
 import User from "./src/usingDB/controllers/User";
+import Feed from "./src/usingDB/controllers/feeds";
 import Auth from "./src/usingDB/middleware/Auth";
 import Comments from './src/usingDB/controllers/comment';
 
@@ -29,6 +30,7 @@ app.delete('/api/v1/gifs/<:gifId>', Auth.verifyToken, Gif.delete);
 app.post('/api/v1/articles/<articleId>/comment', Auth.verifyToken, Comments.createArt);
 app.post('/api/v1/gifs/<:gifId>/comment ', Auth.verifyToken, Comments.createGif);
 app.get('/api/v1/articles/<:articleId', Auth.verifyToken, Article.getOne);
+app.get('/api/v1/feed', Auth.verifyToken, Feed.getAll);
 app.get('api/v1/gifs/<:gifId>', Auth.verifyToken, Gif.getOne);
 
 app.listen(3000)

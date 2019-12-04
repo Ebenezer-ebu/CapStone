@@ -1,9 +1,9 @@
 var cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
-    cloud_name: 'ifezulike',
-    api_key: '276717185955225',
-    api_secret: 'QYWSqB_CenausW7Pj_HVckvVmFA'
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.SECRET
     });
 
     exports.uploads = (file) =>{
