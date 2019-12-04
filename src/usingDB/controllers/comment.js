@@ -13,7 +13,7 @@ const Comments = {
         const createQuery = `INSERT INTO TABLE comment (commid, comment_id, commentgif_id, 
           gifBody, created_date, modified_date)VALUES= ($1, $2, $3, $4, $5, $6) WHERE gifid = $7 returning *`;
         const values =
-         [uuidv4, 
+         [uuidv4(), 
           req.users.id, 
           req.gif.gifid, 
           req.body.gifBody,  
@@ -21,7 +21,7 @@ const Comments = {
           moment(new Date())];
         try {
             const { rows } = await db.query(createQuery);
-            return res.status(201).send(rows[0]);
+            return res.status(201).send( {'message': 'Comment successfully created'},rows[0]);
           } catch(error) {
             return res.status(400).send(error);
           }
@@ -31,7 +31,7 @@ const Comments = {
         const createQuery = `INSERT INTO TABLE comment (commid, comment_id, commentAD_id, 
          articleBody, created_date, modified_date)VALUES= ($1, $2, $3, $4, $5, $6) WHERE articleid = $7 returning *`;
         const values =
-          [uuidv4, 
+          [uuidv4(), 
            req.users.id, 
            req.article.articleid, 
            req.body.articleBody,  
@@ -39,7 +39,7 @@ const Comments = {
            moment(new Date())];
         try {
             const { rows } = await db.query(createQuery);
-            return res.status(201).send(rows[0]);
+            return res.status(201).send( {'message': 'Comment successfully created'}, rows[0]);
           } catch(error) {
             return res.status(400).send(error);
           }

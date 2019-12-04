@@ -3,7 +3,7 @@ var Express = require("express");
 var app = Express();
 
 app.get("/", (request, response) => {
-    response.status(200).send("The Polyglot Developer");
+    response.status(200).send("The DevC Developer");
 });
 
 app.get("/test", (request, response) => {

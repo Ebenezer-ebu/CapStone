@@ -21,7 +21,7 @@ describe("Server", () => {
             expect(data.status).toBe(200);
         });
         it("Body", () => {
-            expect(data.body).toBe("The Polyglot Developer");
+            expect(data.body).toBe("The DevC Developer");
         });
     });
     describe("GET /test", () => {

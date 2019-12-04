@@ -27,7 +27,9 @@ const createUsersTable = () => {
         department VARCHAR(255),
         address VARCHAR(255),
         created_date TIMESTAMP,
-        isAdmin BOOLEAN NOT NULL
+        modified_date TIMESTAMP,
+        isAdmin BOOLEAN NOT NULL (FALSE),
+        isLoggedIn BOOLEAN NOT NULL (FALSE)
     )`;
 
     pool.query(queryText)
@@ -53,6 +55,7 @@ const createArticleTable = () => {
       title VARCHAR(255),
       article VARCHAR(255),
       created_date TIMESTAMP,
+      modified_date TIMESTAMP,
       FOREIGN KEY (owner_id) REFERENCES users (id) ON DELETE CASCADE
     )`;
 
@@ -79,6 +82,7 @@ const createGifTable = () => {
         gif_id UUID,
         image_URL VARCHAR(255),
         created_date TIMESTAMP,
+        modified_date TIMESTAMP,
         FOREIGN KEY (gif_id) REFERENCES users (id) ON DELETE CASCADE
     )`;
     pool.query(queryText)

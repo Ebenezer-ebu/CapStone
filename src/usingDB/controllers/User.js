@@ -25,16 +25,18 @@ const User = {
     const add = req.body.address
 
     const createQuery = `INSERT INTO
-      users(id, firstName, lastName, email, password, gender, jobRole, department, address, created_date)
-      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      users(id, firstName, lastName, email, password, gender, jobRole, department, address, created_date, modified_date)
+      VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
       returning *`;
-    const values = [uuidv4(), istName, endName, req.body.email, hashPassword, sex, work,dp, add, moment(new Date())
+    const values = [uuidv4(), istName, endName, req.body.email, hashPassword, sex, work,dp, add, moment(new Date()), moment(new Date())
     ];
 
     try {
         const { rows } = await db.query(createQuery, values);
+        const userId = rows[0].id;
         const token = Helper.generateToken(rows[0].id);
-        return res.status(201).send({ token });
+        
+        return res.status(201).send({ 'message': 'User account successfully created', token, userId });
       } catch(error) {
         if (error.routine === '_bt_check_unique') {
           return res.status(400).send({ 'message': 'User with that EMAIL already exist' })
@@ -65,8 +67,9 @@ const User = {
       if(!Helper.comparePassword(rows[0].password, req.body.password)) {
         return res.status(400).send({ 'message': 'The credentials you provided is incorrect' });
       }
+      const userId = rows[0].id
       const token = Helper.generateToken(rows[0].id);
-      return res.status(200).send({ token });
+      return res.status(200).send({ token, userId });
     } catch(error) {
       return res.status(400).send(error)
     }

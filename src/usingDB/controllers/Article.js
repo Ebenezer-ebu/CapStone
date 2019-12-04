@@ -11,20 +11,21 @@ const Article = {
      */
     async create(req, res) {
       const createQuery = `INSERT INTO
-        article (articleid, title, article, created_date, owner_id)
-        VALUES($1, $2, $3, $4, $5)
+        article (articleid, owner_id, title, article, created_date, modified_date)
+        VALUES($1, $2, $3, $4, $5, $6)
         returning *`;
       const values = [
         uuidv4(),
+        req.user.id,
         req.body.title,
         req.body.article,
         moment(new Date()),
-        req.user.id,
+        moment(new Date())
       ];
   
       try {
         const { rows } = await db.query(createQuery, values);
-        return res.status(201).send(rows[0]);
+        return res.status(201).send({'message': 'Article successfully posted'}, rows[0]);
       } catch(error) {
         return res.status(400).send(error);
       }
@@ -86,7 +87,7 @@ const Article = {
           req.user.id
         ];
         const response = await db.query(updateOneQuery, values);
-        return res.status(200).send(response.rows[0]);
+        return res.status(200).send( response.rows[0], {'message':'Article successfully updated'} );
       } catch(err) {
         return res.status(400).send(err);
       }
@@ -104,7 +105,7 @@ const Article = {
         if(!rows[0]) {
           return res.status(404).send({'message': 'article not found'});
         }
-        return res.status(204).send({ 'message': 'deleted' });
+        return res.status(204).send({ 'message': 'Article successfully deleted' });
       } catch(error) {
         return res.status(400).send(error);
       }

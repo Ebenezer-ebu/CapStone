@@ -14,20 +14,21 @@ const Gif = {
     const file = result.url;
     const name = result.public_id
     const createQuery = `INSERT INTO
-    gif (gifid, title, image_URL, created_date, gif_id)
-    VALUES($1, $2, $3, $4, $5)
+    gif (gifid, title, gif_id, image_URL, created_date, modified_date)
+    VALUES($1, $2, $3, $4, $5, $6)
     returning *`;
     const values = [
         uuidv4(),
         name,
+        req.users.id,
         file,
         moment(new Date()),
-        req.users.id,
+        moment(new Date())
       ];
 
       try {
         const { rows } = await db.query(createQuery, values);
-        return res.status(201).send(rows[0]);
+        return res.status(201).send({'message': 'GIF image successfully posted' }, rows[0]);
       } catch(error) {
         return res.status(400).send(error);
       }
@@ -63,7 +64,7 @@ const Gif = {
         if(!rows[0]) {
           return res.status(404).send({'message': 'article not found'});
         }
-        return res.status(204).send({ 'message': 'deleted' });
+        return res.status(204).send({ 'message': 'gif post successfully deleted' });
       } catch(error) {
         return res.status(400).send(error);
       }
